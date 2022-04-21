@@ -2,10 +2,15 @@
   <v-container fluid>
     <v-row>
       <template v-for="(comic, index) in comics">
-        <v-col :key="index" cols="3">
-          <v-card>
-            {{ comic.title }}
-          </v-card>
+        <v-col
+          v-if="
+            comic.thumbnail.path !==
+            'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
+          "
+          :key="index"
+          cols="3"
+        >
+          <ComicsCard :comic="comic" />
         </v-col>
       </template>
       <v-col cols="12">

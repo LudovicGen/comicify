@@ -13,7 +13,7 @@ import { PropType } from 'vue'
 import { Character } from '@/utils/character'
 
 @Component({})
-export default class Card extends Vue {
+export default class CharactersCard extends Vue {
   @Prop({ type: Object as PropType<Character> })
   public character!: Character
 }

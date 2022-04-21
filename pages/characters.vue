@@ -10,7 +10,7 @@
           :key="character.name"
           cols="3"
         >
-          <Card :character="character" />
+          <CharactersCard :character="character" />
         </v-col>
       </template>
       <v-col cols="12">
