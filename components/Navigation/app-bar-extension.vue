@@ -1,5 +1,14 @@
 <template>
   <v-container fluid>
+    <v-btn
+      v-for="(link, index) in links"
+      :key="index"
+      text
+      class="text-center"
+      nuxt
+      :to="link.to"
+      >{{ link.text }}</v-btn
+    >
     <v-tooltip bottom>
       <template #activator="{ on, attrs }">
         <v-btn
@@ -38,5 +47,28 @@ export default class NavigationAppBarExtension extends Vue {
       this.$vuetify.theme.dark = true
     }
   }
+
+  public links = [
+    {
+      text: 'Personnage',
+      to: '/characters',
+    },
+    {
+      text: 'Bandes dessinées',
+      to: '/comics',
+    },
+    {
+      text: 'Créateurs',
+      to: '/creators',
+    },
+    {
+      text: 'Séries',
+      to: '/series',
+    },
+    {
+      text: 'Histoires',
+      to: '/stories',
+    },
+  ]
 }
 </script>
