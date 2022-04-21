@@ -12,8 +12,8 @@
     <v-tooltip bottom>
       <template #activator="{ on, attrs }">
         <v-btn
-          class="mr-2"
           v-bind="attrs"
+          class="mr-2"
           text
           icon
           color="primary"
