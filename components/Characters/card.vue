@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="0" outlined height="100%">
+  <v-card elevation="0" outlined height="100%" nuxt :to="`/characters/${character.id}`">
     <v-img
       height="150"
       :src="character.thumbnail.path + '.' + character.thumbnail.extension"
