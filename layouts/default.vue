@@ -6,7 +6,7 @@
         style="margin-right: 15px"
         @click="showMenu = !showMenu"
       />
-      <v-card color="red" elevation="0" class="text-center" nuxt to="/">
+      <v-card color="error" elevation="0" class="text-center" nuxt to="/">
         <v-card-title class="justify-center">
           <span class="white--text text-uppercase font-weight-bold text-h5">Comicify</span>
         </v-card-title>
