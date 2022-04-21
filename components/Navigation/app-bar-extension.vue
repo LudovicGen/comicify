@@ -50,7 +50,7 @@ export default class NavigationAppBarExtension extends Vue {
 
   public links = [
     {
-      text: 'Personnage',
+      text: 'Personnages',
       to: '/characters',
     },
     {
