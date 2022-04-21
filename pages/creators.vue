@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row>
+    <v-row v-if="!$fetchState.pending">
       <template v-for="(creator, index) in creators">
         <v-col :key="index" cols="3">
           <CreatorsCard :creator="creator" />
@@ -10,12 +10,13 @@
         <UtilsInfiniteScroll v-model="creators" :total="total" api-url="/creators" />
       </v-col>
     </v-row>
+    <v-skeleton-loader v-else type="card-avatar@4" />
   </v-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { Creator } from '~/utils/creator'
+import { Creator } from '~/utils'
 
 @Component({})
 export default class PageCreators extends Vue {

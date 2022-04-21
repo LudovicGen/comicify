@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row>
+    <v-row v-if="!$fetchState.pending">
       <template v-for="(serie, index) in series">
         <v-col :key="index" cols="3">
           <SeriesCard :serie="serie" />
@@ -10,12 +10,13 @@
         <UtilsInfiniteScroll v-model="series" :total="total" api-url="/series" />
       </v-col>
     </v-row>
+    <v-skeleton-loader v-else type="card-avatar@4" />
   </v-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { Serie } from '~/utils/serie'
+import { Serie } from '~/utils'
 
 @Component({})
 export default class PageSeries extends Vue {

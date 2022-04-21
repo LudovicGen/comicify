@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row>
+    <v-row v-if="!$fetchState.pending">
       <template v-for="(story, index) in stories">
         <v-col :key="index" cols="3">
           <StoriesCard :story="story" />
@@ -10,6 +10,7 @@
         <UtilsInfiniteScroll v-model="stories" :total="total" api-url="/stories" />
       </v-col>
     </v-row>
+    <v-skeleton-loader v-else type="card-avatar@4" />
   </v-container>
 </template>
 
