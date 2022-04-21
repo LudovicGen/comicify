@@ -35,12 +35,14 @@ const config: NuxtConfig = {
 
   publicRuntimeConfig: {
     browserBaseURL: process.env.API_URL,
-    apiSecret: process.env.API_PUBLIC,
+    publicKey: process.env.PUBLIC_KEY,
+    secretKey: process.env.SECRET_KEY,
   },
 
   privateRuntimeConfig: {
     browserBaseURL: process.env.API_URL,
-    apiSecret: process.env.API_PUBLIC,
+    publicKey: process.env.PUBLIC_KEY,
+    secretKey: process.env.SECRET_KEY,
   },
 
   router: {

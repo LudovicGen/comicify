@@ -1,9 +1,18 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col v-for="(character, index) in characters" :key="index" cols="3">
-        <Card :character="character" />
-      </v-col>
+      <template v-for="character in characters">
+        <v-col
+          v-if="
+            character.thumbnail.path !==
+            'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
+          "
+          :key="character.name"
+          cols="3"
+        >
+          <Card :character="character" />
+        </v-col>
+      </template>
       <v-col cols="12">
         <UtilsInfiniteScroll v-model="characters" :total="total" api-url="/characters" />
       </v-col>

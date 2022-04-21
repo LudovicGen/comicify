@@ -1,11 +1,10 @@
 import CryptoJS from 'crypto-js'
 
-export default ({ $axios, $config: { browserBaseURL, apiSecret } }) => {
+export default ({ $axios, $config: { browserBaseURL, publicKey, secretKey } }) => {
   const ts = new Date().getTime()
-  const secret = process.env.SECRET_KEY
-  const message = ts + secret + apiSecret
+  const message = ts + secretKey + publicKey
   const hash = CryptoJS.MD5(message)
 
   $axios.defaults.baseURL = browserBaseURL
-  $axios.defaults.params = { ts, apikey: apiSecret, hash: hash.toString() }
+  $axios.defaults.params = { ts, apikey: publicKey, hash: hash.toString() }
 }
