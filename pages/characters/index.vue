@@ -20,7 +20,7 @@
         <v-col cols="2">
           <v-autocomplete
             v-model="orderBy"
-            label="Filtré par"
+            label="Trié par"
             :items="listOrderBy"
             item-text="text"
             item-value="value"
