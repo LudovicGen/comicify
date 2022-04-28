@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="0" outlined height="100%">
+  <v-card elevation="0" outlined height="100%" nuxt :to="`/series/${serie.id}`">
     <v-img height="150" :src="serie.thumbnail.path + '.' + serie.thumbnail.extension"></v-img>
     <v-card-title class="font-weight-bold">{{ serie.title }}</v-card-title>
   </v-card>

@@ -45,7 +45,14 @@
       <p class="mt-4 font-weight-bold text-h6">Histoires :</p>
       <v-row>
         <v-col v-for="story in character.stories.items" :key="story.id" cols="4">
-          <v-card elevation="0" outlined width="100%" height="18vh">
+          <v-card
+            elevation="0"
+            outlined
+            width="100%"
+            height="18vh"
+            nuxt
+            :to="`/stories/${getId(story.resourceURI)}`"
+          >
             <v-card-text class="font-weight-bold text-body-1">
               {{ story.name }}
               <p class="text-body-2">{{ translate(story.type) }}</p>
@@ -56,7 +63,14 @@
       <p class="mt-4 font-weight-bold text-h6">Événements :</p>
       <v-row v-if="character.events.items.length > 0">
         <v-col v-for="event in character.events.items" :key="event.id">
-          <v-card elevation="0" outlined width="100%" height="18vh">
+          <v-card
+            elevation="0"
+            outlined
+            width="100%"
+            height="18vh"
+            nuxt
+            :to="`/events/${getId(event.resourceURI)}`"
+          >
             <v-card-text class="font-weight-bold text-body-1">
               {{ event.name }}
             </v-card-text>
