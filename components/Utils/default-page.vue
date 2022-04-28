@@ -47,6 +47,7 @@
     </v-toolbar>
     <v-row v-if="!$fetchState.pending">
       <slot></slot>
+      <p v-if="items.length === 0" class="text-center ml-8 text-h6">Aucun résultats</p>
       <v-col cols="12">
         <UtilsInfiniteScroll v-model="items" :total="total" :api-url="apiUrl" :search="search" />
       </v-col>
