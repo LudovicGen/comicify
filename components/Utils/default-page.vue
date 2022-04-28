@@ -12,7 +12,7 @@
             clear-icon="fa-times"
             label="Rechercher"
             class="text-body-2"
-            @keypress.enter="loadData"
+            @input="debouncedSearch"
           >
             <template v-if="search === '' || search == undefined" #append>
               <v-icon color="classicIcon">fas fa-search</v-icon>
@@ -48,7 +48,7 @@
     <v-row v-if="!$fetchState.pending">
       <slot></slot>
       <v-col cols="12">
-        <UtilsInfiniteScroll v-model="items" :total="total" :api-url="apiUrl" />
+        <UtilsInfiniteScroll v-model="items" :total="total" :api-url="apiUrl" :search="search" />
       </v-col>
     </v-row>
     <v-skeleton-loader v-else type="card-avatar@4" />
@@ -57,6 +57,8 @@
 <script lang="ts">
 import { Component, Prop, VModel, Vue } from 'nuxt-property-decorator'
 import { PropType } from 'vue'
+import type { DebouncedFunc } from 'lodash'
+import debounce from 'lodash/debounce'
 
 @Component({})
 export default class UtilsDefaultPage<Entity> extends Vue {
@@ -82,7 +84,17 @@ export default class UtilsDefaultPage<Entity> extends Vue {
 
   public search: string = ''
 
+  public debouncedSearch!: DebouncedFunc<() => Promise<void>>
+
   public asc = true
+
+  public created(): void {
+    this.debouncedSearch = debounce(() => {
+      this.items = []
+      // eslint-disable-next-line no-void
+      void this.loadData()
+    }, 1000)
+  }
 
   public async loadData(): Promise<void> {
     const { data } = await this.$axios.$get<Entity[]>(this.apiUrl, {

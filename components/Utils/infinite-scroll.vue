@@ -33,13 +33,21 @@ export default class UtilsInfiniteScroll<Entity> extends Vue {
   @Prop({ type: String })
   public apiUrl!: string
 
+  @Prop({ type: String, required: false })
+  public search!: string
+
   public page = 0
 
   public loadingNewPage = false
 
   public async onIntersect(entries?: { intersectionRatio: number }[]): Promise<void> {
     const isIntersecting = entries?.[0] ? entries[0].intersectionRatio >= 0.5 : false
-    if (isIntersecting && this.total > this.items.length && !this.loadingNewPage) {
+    if (
+      isIntersecting &&
+      this.total > this.items.length &&
+      !this.loadingNewPage &&
+      (this.search === '' || this.search === null)
+    ) {
       this.loadingNewPage = true
       const result = await this.loadNewPage()
       if (result.length > 0) {
