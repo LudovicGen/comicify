@@ -8,7 +8,7 @@
     <v-col cols="6">
       <v-img
         v-if="story.thumbnail != undefined"
-        height="100vh"
+        height="75vh"
         :src="story.thumbnail.path + '.' + story.thumbnail.extension"
       ></v-img>
     </v-col>
@@ -28,6 +28,36 @@
         @click="redirect(url)"
         >{{ story.type }}</v-btn
       >
+      <UtilsCardInfo
+        v-if="story.comics.items.length > 0"
+        url="comics"
+        :items="story.comics.items"
+        title="Bandes dessinées"
+      />
+      <UtilsCardInfo
+        v-if="story.series.items.length > 0"
+        url="series"
+        :items="story.series.items"
+        title="Séries"
+      />
+      <UtilsCardInfo
+        v-if="story.events.items.length > 0"
+        url="events"
+        :items="story.events.items"
+        title="Événements"
+      />
+      <UtilsCardInfo
+        v-if="story.characters.items.length > 0"
+        url="characters"
+        :items="story.characters.items"
+        title="Personnages"
+      />
+      <UtilsCardInfo
+        v-if="story.creators.items.length > 0"
+        url="creators"
+        :items="story.creators.items"
+        title="Créateurs"
+      />
     </v-col>
   </v-row>
 </template>

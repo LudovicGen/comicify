@@ -8,7 +8,8 @@
     <v-col cols="6">
       <v-img
         v-if="comic.thumbnail !== undefined"
-        height="100vh"
+        height="100%"
+        max-height="75vh"
         :src="comic.thumbnail.path + '.' + comic.thumbnail.extension"
       ></v-img>
     </v-col>
@@ -25,23 +26,36 @@
         @click="redirect(url)"
         >{{ url.type }}</v-btn
       >
-      <p class="mt-4 font-weight-bold text-h6">Personnages :</p>
-      <v-row>
-        <v-col v-for="(character, index) in comic.characters.items" :key="index" cols="4">
-          <v-card
-            elevation="0"
-            outlined
-            width="100%"
-            height="18vh"
-            nuxt
-            :to="`/characters/${getId(character.resourceURI)}`"
-          >
-            <v-card-text class="font-weight-bold text-body-1">
-              {{ character.name }}
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+      <UtilsCardInfo
+        v-if="comic.characters.items.length > 0"
+        url="characters"
+        :items="comic.characters.items"
+        title="Personnages"
+      />
+      <UtilsCardInfo
+        v-if="comic.creators.items.length > 0"
+        url="creators"
+        :items="comic.creators.items"
+        title="Créateurs"
+      />
+      <UtilsCardInfo
+        v-if="comic.events.items.length > 0"
+        url="events"
+        :items="comic.events.items"
+        title="Événements"
+      />
+      <UtilsCardInfo
+        v-if="comic.stories.items.length > 0"
+        url="stories"
+        :items="comic.stories.items"
+        title="Histoires"
+      />
+      <UtilsCardInfo
+        v-if="comic.collections.length > 0"
+        url="collections"
+        :items="comic.collections"
+        title="Collections"
+      />
     </v-col>
   </v-row>
 </template>

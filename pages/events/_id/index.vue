@@ -7,15 +7,18 @@
     >
     <v-col cols="6">
       <v-img
-        v-if="serie.thumbnail !== undefined"
+        v-if="event.thumbnail !== undefined"
         height="75vh"
-        :src="serie.thumbnail.path + '.' + serie.thumbnail.extension"
+        :src="event.thumbnail.path + '.' + event.thumbnail.extension"
       ></v-img>
     </v-col>
     <v-col cols="6">
-      <h2 class="text-h4 font-weight-bold mb-4">{{ serie.title }}</h2>
+      <h2 class="text-h4 font-weight-bold mb-4">{{ event.title }}</h2>
+      <p v-if="event.description !== ''" class="text-body-1">
+        {{ event.description }}
+      </p>
       <v-btn
-        v-for="url in serie.urls"
+        v-for="url in event.urls"
         :key="url.type"
         outlined
         class="mr-2 text-capitalize"
@@ -23,33 +26,33 @@
         >{{ url.type }}</v-btn
       >
       <UtilsCardInfo
-        v-if="serie.comics.items.length > 0"
+        v-if="event.comics.items.length > 0"
         url="comics"
-        :items="serie.comics.items"
+        :items="event.comics.items"
         title="Bandes dessinées"
       />
       <UtilsCardInfo
-        v-if="serie.stories.items.length > 0"
+        v-if="event.stories.items.length > 0"
         url="stories"
-        :items="serie.stories.items"
+        :items="event.stories.items"
         title="Histoires"
       />
       <UtilsCardInfo
-        v-if="serie.events.items.length > 0"
-        url="events"
-        :items="serie.events.items"
-        title="Événements"
+        v-if="event.series.items.length > 0"
+        url="series"
+        :items="event.series.items"
+        title="Séries"
       />
       <UtilsCardInfo
-        v-if="serie.characters.items.length > 0"
+        v-if="event.characters.items.length > 0"
         url="characters"
-        :items="serie.characters.items"
+        :items="event.characters.items"
         title="Personnages"
       />
       <UtilsCardInfo
-        v-if="serie.creators.items.length > 0"
+        v-if="event.creators.items.length > 0"
         url="creators"
-        :items="serie.creators.items"
+        :items="event.creators.items"
         title="Créateurs"
       />
     </v-col>
@@ -58,15 +61,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { Serie } from '~/utils'
+import { Event } from '~/utils'
 
 @Component({})
-export default class PageSerieIndex extends Vue {
-  public serie = {} as Serie
+export default class PageEventIndex extends Vue {
+  public event = {} as Event
 
   public async fetch(): Promise<void> {
-    const { data } = await this.$axios.$get(`/series/${this.$route.params.id}`)
-    this.serie = data.results[0]
+    const { data } = await this.$axios.$get(`/events/${this.$route.params.id}`)
+    this.event = data.results[0]
   }
 
   public redirect(url: { url: string; type: string }): void {

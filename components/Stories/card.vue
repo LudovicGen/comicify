@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="0" outlined height="100%">
+  <v-card elevation="0" outlined height="100%" nuxt :to="`/stories/${story.id}`">
     <v-card-title class="font-weight-bold">{{ story.title }}</v-card-title>
   </v-card>
 </template>

@@ -8,7 +8,7 @@
     <v-col cols="6">
       <v-img
         v-if="character.thumbnail !== undefined"
-        height="100vh"
+        height="75vh"
         :src="character.thumbnail.path + '.' + character.thumbnail.extension"
       ></v-img>
     </v-col>
@@ -25,59 +25,30 @@
         @click="redirect(url)"
         >{{ url.type }}</v-btn
       >
-      <p class="mt-4 font-weight-bold text-h6">Bandes dessinées :</p>
-      <v-row>
-        <v-col v-for="comic in character.comics.items" :key="comic.id" cols="4">
-          <v-card
-            elevation="0"
-            outlined
-            width="100%"
-            height="18vh"
-            nuxt
-            :to="`/comics/${getId(comic.resourceURI)}`"
-          >
-            <v-card-text class="font-weight-bold text-body-1">
-              {{ comic.name }}
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-      <p class="mt-4 font-weight-bold text-h6">Histoires :</p>
-      <v-row>
-        <v-col v-for="story in character.stories.items" :key="story.id" cols="4">
-          <v-card
-            elevation="0"
-            outlined
-            width="100%"
-            height="18vh"
-            nuxt
-            :to="`/stories/${getId(story.resourceURI)}`"
-          >
-            <v-card-text class="font-weight-bold text-body-1">
-              {{ story.name }}
-              <p class="text-body-2">{{ translate(story.type) }}</p>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-      <p class="mt-4 font-weight-bold text-h6">Événements :</p>
-      <v-row v-if="character.events.items.length > 0">
-        <v-col v-for="event in character.events.items" :key="event.id">
-          <v-card
-            elevation="0"
-            outlined
-            width="100%"
-            height="18vh"
-            nuxt
-            :to="`/events/${getId(event.resourceURI)}`"
-          >
-            <v-card-text class="font-weight-bold text-body-1">
-              {{ event.name }}
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-      <p v-else>Aucun résultats</p>
+      <UtilsCardInfo
+        v-if="character.comics.items.length > 0"
+        :items="character.comics.items"
+        url="comics"
+        title="Bandes dessinées"
+      />
+      <UtilsCardInfo
+        v-if="character.stories.items.length > 0"
+        url="stories"
+        :items="character.stories.items"
+        title="Histoires"
+      />
+      <UtilsCardInfo
+        v-if="character.events.items.length > 0"
+        url="events"
+        :items="character.events.items"
+        title="Événements"
+      />
+      <UtilsCardInfo
+        v-if="character.series.items.length > 0"
+        url="series"
+        :items="character.series.items"
+        title="Séries"
+      />
     </v-col>
     <v-col cols="12"> </v-col>
   </v-row>
