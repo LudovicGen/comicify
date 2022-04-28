@@ -6,6 +6,7 @@
       :title="title"
       :list-order-by="listOrderBy"
       :order-by="orderBy"
+      param-search="titleStartsWith"
     >
       <template v-for="(comic, index) in comics">
         <v-col

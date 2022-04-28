@@ -6,6 +6,7 @@
       :title="title"
       :list-order-by="listOrderBy"
       :order-by="orderBy"
+      param-search="nameStartsWith"
     >
       <template v-for="(creator, index) in creators">
         <v-col :key="index" cols="3">

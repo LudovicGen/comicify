@@ -6,6 +6,7 @@
       :title="title"
       :list-order-by="listOrderBy"
       :order-by="orderBy"
+      param-search="titleStartsWith"
     >
       <template v-for="(serie, index) in series">
         <v-col

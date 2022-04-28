@@ -97,11 +97,12 @@ export default class UtilsDefaultPage<Entity> extends Vue {
   }
 
   public async loadData(): Promise<void> {
+    const params = {
+      orderBy: this.asc ? this.orderBy : `-${this.orderBy}`,
+      [this.paramSearch]: this.search !== '' ? this.search : undefined,
+    }
     const { data } = await this.$axios.$get<Entity[]>(this.apiUrl, {
-      params: {
-        nameStartsWith: this.search !== '' ? this.search : undefined,
-        orderBy: this.asc ? this.orderBy : `-${this.orderBy}`,
-      },
+      params,
     })
     this.items = data.results
     this.total = data.total
