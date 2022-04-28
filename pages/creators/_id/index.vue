@@ -7,37 +7,34 @@
     >
     <v-col cols="6">
       <v-img
-        v-if="comic.thumbnail !== undefined"
+        v-if="creator.thumbnail !== undefined"
         height="100vh"
-        :src="comic.thumbnail.path + '.' + comic.thumbnail.extension"
+        :src="creator.thumbnail.path + '.' + creator.thumbnail.extension"
       ></v-img>
     </v-col>
     <v-col cols="6">
-      <h2 class="text-h4 font-weight-bold mb-4">{{ comic.title }}</h2>
-      <p v-if="comic.description !== ''" class="text-body-1">
-        {{ comic.description }}
-      </p>
+      <h2 class="text-h4 font-weight-bold mb-4">{{ creator.fullName }}</h2>
       <v-btn
-        v-for="url in comic.urls"
+        v-for="url in creator.urls"
         :key="url.type"
         outlined
         class="mr-2 text-capitalize"
         @click="redirect(url)"
         >{{ url.type }}</v-btn
       >
-      <p class="mt-4 font-weight-bold text-h6">Personnages :</p>
+      <p class="mt-4 font-weight-bold text-h6">Bandes dessinées :</p>
       <v-row>
-        <v-col v-for="(character, index) in comic.characters.items" :key="index" cols="4">
+        <v-col v-for="(comic, index) in creator.comics.items" :key="index" cols="4">
           <v-card
             elevation="0"
             outlined
             width="100%"
             height="18vh"
             nuxt
-            :to="`/characters/${getId(character.resourceURI)}`"
+            :to="`/comics/${getId(comic.resourceURI)}`"
           >
             <v-card-text class="font-weight-bold text-body-1">
-              {{ character.name }}
+              {{ comic.name }}
             </v-card-text>
           </v-card>
         </v-col>
@@ -48,15 +45,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { Comic } from '~/utils'
+import { Creator } from '~/utils'
 
 @Component({})
-export default class PageComicsIndex extends Vue {
-  public comic = {} as Comic
+export default class PageCreatorIndex extends Vue {
+  public creator = {} as Creator
 
   public async fetch(): Promise<void> {
-    const { data } = await this.$axios.$get(`/comics/${this.$route.params.id}`)
-    this.comic = data.results[0]
+    const { data } = await this.$axios.$get(`/creators/${this.$route.params.id}`)
+    this.creator = data.results[0]
   }
 
   public redirect(url: { url: string; type: string }): void {

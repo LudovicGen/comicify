@@ -34,7 +34,7 @@
             width="100%"
             height="18vh"
             nuxt
-            :to="`/comics/${comic.ressourceURI}`"
+            :to="`/comics/${getId(comic.resourceURI)}`"
           >
             <v-card-text class="font-weight-bold text-body-1">
               {{ comic.name }}
@@ -76,8 +76,6 @@ import { Character } from '~/utils'
 export default class Index extends Vue {
   public character = {} as Character
 
-  public carousel = 0
-
   public async fetch(): Promise<void> {
     const { data } = await this.$axios.$get(`/characters/${this.$route.params.id}`)
     this.character = data.results[0]
@@ -95,6 +93,11 @@ export default class Index extends Vue {
       default:
         return 'couverture'
     }
+  }
+
+  public getId(redirectUri: string): string {
+    const redirectUriSplit = redirectUri.split('/')
+    return redirectUriSplit[6]
   }
 }
 </script>

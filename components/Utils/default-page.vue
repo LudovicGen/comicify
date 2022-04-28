@@ -103,5 +103,14 @@ export default class UtilsDefaultPage<Entity> extends Vue {
     this.asc = !this.asc
     await this.loadData()
   }
+
+  public reloadLastQuery(): void {
+    if (this.$route.query.search !== undefined && typeof this.$route.query.search === 'string') {
+      this.search = this.$route.query.search
+    }
+    if (this.$route.query.orderBy !== undefined && typeof this.$route.query.orderBy === 'string') {
+      this.orderBy = this.$route.query.orderBy
+    }
+  }
 }
 </script>

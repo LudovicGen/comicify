@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="0" outlined height="100%">
+  <v-card elevation="0" outlined height="100%" nuxt :to="`/creators/${creator.id}`">
     <v-img height="150" :src="creator.thumbnail.path + '.' + creator.thumbnail.extension"></v-img>
     <v-card-title class="font-weight-bold">{{ creator.fullName }}</v-card-title>
   </v-card>
