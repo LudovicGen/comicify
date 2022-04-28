@@ -1,16 +1,18 @@
 <template>
   <v-container fluid>
-    <v-row v-if="!$fetchState.pending">
+    <UtilsDefaultPage
+      v-model="stories"
+      :api-url="apiUrl"
+      :title="title"
+      :list-order-by="listOrderBy"
+      :order-by="orderBy"
+    >
       <template v-for="(story, index) in stories">
         <v-col :key="index" cols="3">
           <StoriesCard :story="story" />
         </v-col>
       </template>
-      <v-col cols="12">
-        <UtilsInfiniteScroll v-model="stories" :total="total" api-url="/stories" />
-      </v-col>
-    </v-row>
-    <v-skeleton-loader v-else type="card-avatar@4" />
+    </UtilsDefaultPage>
   </v-container>
 </template>
 
@@ -22,12 +24,12 @@ import { Story } from '~/utils'
 export default class PageStories extends Vue {
   public stories: Story[] = []
 
-  public total = 0
+  public apiUrl = '/stories'
 
-  public async fetch(): Promise<void> {
-    const { data } = await this.$axios.$get('/stories')
-    this.stories = data.results
-    this.total = data.total
-  }
+  public title = 'Listes des histoires'
+
+  public listOrderBy = [{ text: 'Date de dernière modification', value: 'modified' }]
+
+  public orderBy = 'modified'
 }
 </script>

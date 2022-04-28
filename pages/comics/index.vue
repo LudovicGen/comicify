@@ -1,11 +1,18 @@
 <template>
   <v-container fluid>
-    <v-row v-if="!$fetchState.pending">
+    <UtilsDefaultPage
+      v-model="comics"
+      :api-url="apiUrl"
+      :title="title"
+      :list-order-by="listOrderBy"
+      :order-by="orderBy"
+    >
       <template v-for="(comic, index) in comics">
         <v-col
           v-if="
+            comic.thumbnail &&
             comic.thumbnail.path !==
-            'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
+              'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
           "
           :key="index"
           cols="3"
@@ -13,11 +20,7 @@
           <ComicsCard :comic="comic" />
         </v-col>
       </template>
-      <v-col cols="12">
-        <UtilsInfiniteScroll v-model="comics" :total="total" api-url="/comics" />
-      </v-col>
-    </v-row>
-    <v-skeleton-loader v-else type="card-avatar@4" />
+    </UtilsDefaultPage>
   </v-container>
 </template>
 
@@ -29,12 +32,15 @@ import { Comic } from '~/utils'
 export default class PageComics extends Vue {
   public comics: Comic[] = []
 
-  public total = 0
+  public apiUrl = '/comics'
 
-  public async fetch(): Promise<void> {
-    const { data } = await this.$axios.$get('/comics')
-    this.comics = data.results
-    this.total = data.total
-  }
+  public title = 'Listes des bandes dessinées'
+
+  public listOrderBy = [
+    { text: 'Titre', value: 'title' },
+    { text: 'Date de dernière modification', value: 'modified' },
+  ]
+
+  public orderBy = 'title'
 }
 </script>
